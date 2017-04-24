@@ -5,7 +5,7 @@
       <paths name="StudentServer">
         <serverdata>
           <mappings>
-            <mapping deploy="/public_html/cs470/website" local="$PROJECT_DIR$" web="/~cdownie/cs470/website" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
