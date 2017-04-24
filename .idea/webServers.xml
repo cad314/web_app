@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="70b82811-74fd-4e20-aaa0-c97c5a2ce7b9" name="StudentServer" url="http://cs.sonoma.edu">
+        <fileTransfer host="cs.sonoma.edu" port="22" rootFolder="/home/student/cdownie" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
