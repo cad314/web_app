@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mysql = require('mysql');
+var db_connect = require('./DAL/db_connect.js');//Database connection
 
 var index = require('./routes/index');
 var calendar = require('./routes/calendar');//Added page
-var users = require('./routes/users');
 var student = require('./routes/student');
 var instructor = require('./routes/instructor');
 
@@ -18,7 +19,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/calendar', calendar);//Added pages
 app.use('/student', student);
 app.use('/instructor', instructor);
