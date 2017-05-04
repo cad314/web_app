@@ -15,6 +15,7 @@ var index = require('./routes/index');
 var calendar = require('./routes/calendar');//Added page
 var student = require('./routes/student');
 var instructor = require('./routes/instructor');
+var signup = require('./routes/signup');
 
 var app = express();
 
@@ -34,6 +35,8 @@ app.use('/', index);
 app.use('/calendar', calendar);//Added pages
 app.use('/student', student);
 app.use('/instructor', instructor);
+app.use('/signup', signup);
+// app.use('/psignup', signup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
