@@ -3,19 +3,39 @@ var user_dal = require('../DAL/User_DAL');
 
 var router = express.Router();
 
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    user_dal.login("Carlos","Downie","is THE BOMB!",function(logged){
+    console.log(req.body);
+    res.render('index', { title: 'Home', logged_in: false});
+    //init();
+});
+
+router.post('/', function(req, res, next) {
+    console.log(req.body);
+    res.render('index', { title: 'Home', logged_in: false});
+    //init();
+});
+
+function init(){
+    document.getElementById("login_form").onsubmit = login();
+}
+
+function login(){
+
+    console.log(req.body);
+    user_dal.login("cad314","is THE BOMB!",function(logged){
         if(logged){
-            res.render('index', { title: 'Home of Carlos', logged_in: " Carlos Downie"});
+            res.render('index', { title: 'Home of Carlos', logged_in: true});
         }
         else{
-            res.render('index', { title: 'Home of Nobody', logged_in: ""});
+            res.render('index', { title: 'Home of Nobody', logged_in: false});
         }
 
     },function(err){
-        res.render('index', { title: 'Home', logged_in: "Error"});
+        res.render('index', { title: 'Home', logged_in: false});
     });
-});
+}
 
 module.exports = router;
