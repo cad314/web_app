@@ -5,7 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-var db_connect = require('./DAL/db_connect.js');//Database connection
+
+//Connect to database
+var db_connection = require('./DAL/db_connect.js');//Database connection
+//var db_connection = new DatabaseConnector();
+//db_connection.checkConnection();
 
 var index = require('./routes/index');
 var calendar = require('./routes/calendar');//Added page
@@ -49,4 +53,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+module.exports.db_connection = db_connection;
 module.exports = app;
