@@ -1,29 +1,19 @@
 var express = require('express');
 var user_dal = require('../DAL/User_DAL');
-
 var router = express.Router();
-
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     console.log(req.body);
     res.render('index', { title: 'Home', logged_in: false});
-    //init();
 });
 
 router.post('/', function(req, res, next) {
     console.log(req.body);
     res.render('index', { title: 'Home', logged_in: false});
-    //init();
 });
 
-function init(){
-    document.getElementById("login_form").onsubmit = login();
-}
-
-function login(){
-
+function action(){
     console.log(req.body);
     user_dal.login("cad314","is THE BOMB!",function(logged){
         if(logged){
