@@ -4,28 +4,50 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(req.body);
-    res.render('index', { title: 'Home', logged_in: false});
+    res.render('index', { title: 'Home'});
 });
 
 router.post('/', function(req, res, next) {
-    console.log(req.body);
-    res.render('index', { title: 'Home', logged_in: false});
+
+    //Choose between login or signup
+    if(req.body.signup == undefined){
+        login(req,res);//Perform login action if signup was undefined
+    }
+    else{
+        signup(req,res);
+    }
 });
 
-function action(){
-    console.log(req.body);
-    user_dal.login("cad314","is THE BOMB!",function(logged){
+function login(req,res){
+    var formData = req.body;
+
+    user_dal.login(formData.email,formData.password,function(logged,rows){
         if(logged){
-            res.render('index', { title: 'Home of Carlos', logged_in: true});
+            app.locals.UserData = rows[0];
+            app.locals.logged = true;
+            if(rows[0].isStudent){
+                res.redirect("/student");
+                //res.render('student', { title: 'Student Profile', data: app.locals.UserData});
+            }
+            else {
+                res.redirect("/instructor");
+                //res.render('instructor', { title: 'Instructor Profile', data: app.locals.UserData});
+            }
         }
         else{
-            res.render('index', { title: 'Home of Nobody', logged_in: false});
+            console.log("Bad login");
+            app.locals.logged = false;
+            res.render('index', { title: 'Home'});
         }
 
     },function(err){
-        res.render('index', { title: 'Home', logged_in: false});
+        app.locals.logged = false;
+        res.render('index', { title: 'Home'});
     });
+}
+
+function signup(req,res){
+    res.redirect("/signup");
 }
 
 module.exports = router;

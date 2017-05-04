@@ -3,7 +3,6 @@
     <head>
         <title><%= title %></title>
         <link rel='stylesheet' href='/stylesheets/style.css' />
-        <script type="text/javascript" src="/javascripts/test_connection.js"></script>
     </head>
     <body>
         <div class = "container">
@@ -12,13 +11,13 @@
                  style= "width:430px; height:200px;" >
             <div id="nav"></div>
 
-            <form id="login_form" method="post" onsubmit="action()">
+            <form id="login_form" method="post">
                 Email:<br />
                 <input name="email" id="email" type="text" /><br />
                 Password:<br />
                 <input name="password" id="password" type="password" /><br />
-                <input type="submit" name="Login" value="Login">
-                <input type="submit" name="Signup" value="Sign Up">
+                <input type="submit" name="login" value="Login">
+                <input type="submit" name="signup" value="Sign Up">
             </form>
         </div>
         <script type="text/javascript" src="/javascripts/navbar.js"></script>

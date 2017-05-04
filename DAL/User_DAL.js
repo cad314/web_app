@@ -19,11 +19,10 @@ User.prototype.login = function(email,password,onSuccess,onFail){
     var success = function(rows){
         console.log("Login Success!");
         if(rows.length > 0) {
-            console.log("First name: " + rows[0].firstName + " Last name: " + rows[0].lastName + " email: " + rows[0].password);
-            onSuccess(true);
+            onSuccess(true,rows);
             return;
         }
-        onSuccess(false);
+        onSuccess(false,null);
     };
 
     var fail = function(err){
@@ -31,7 +30,7 @@ User.prototype.login = function(email,password,onSuccess,onFail){
         onFail(err);
     };
 
-    db.sendQuery("SELECT * FROM Users WHERE email=? AND password=?",[email,password],success,fail);
+    db.sendQuery("SELECT firstName, lastName, email, userID, isStudent FROM Users WHERE email=? AND password=?",[email,password],success,fail);
 };
 
 User.prototype.register = function(){

@@ -8,8 +8,6 @@ var mysql = require('mysql');
 
 //Connect to database
 var db_connection = require('./DAL/db_connect.js');//Database connection
-//var db_connection = new DatabaseConnector();
-//db_connection.checkConnection();
 
 var index = require('./routes/index');
 var calendar = require('./routes/calendar');//Added page
@@ -17,7 +15,7 @@ var student = require('./routes/student');
 var instructor = require('./routes/instructor');
 var signup = require('./routes/signup');
 
-var app = express();
+global.app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
