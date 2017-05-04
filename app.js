@@ -5,12 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-var db_connect = require('./DAL/db_connect.js');//Database connection
+
+//Connect to database
+var db_connection = require('./DAL/db_connect.js');//Database connection
+//var db_connection = new DatabaseConnector();
+//db_connection.checkConnection();
 
 var index = require('./routes/index');
 var calendar = require('./routes/calendar');//Added page
 var student = require('./routes/student');
 var instructor = require('./routes/instructor');
+var signup = require('./routes/signup');
 
 var app = express();
 
@@ -30,23 +35,26 @@ app.use('/', index);
 app.use('/calendar', calendar);//Added pages
 app.use('/student', student);
 app.use('/instructor', instructor);
+app.use('/signup', signup);
+// app.use('/psignup', signup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
+module.exports.db_connection = db_connection;
 module.exports = app;

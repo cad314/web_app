@@ -6,16 +6,21 @@
         <script type="text/javascript" src="/javascripts/test_connection.js"></script>
     </head>
     <body>
-        <h1><%= title %></h1>
-        <div id="nav"></div>
-        <form id="login_form">
-            User Name:<br />
-            <input name="user" id="user" type="text" /><br />
-            Password:<br />
-            <input name="user" id="user" type="password" /><br />
-            <input type="submit" name="Login" value="Login">
-            <input type="submit" name="New" value="New User">
-        </form>
+        <div class = "container">
+            <!--<h1><%= title %></h1>-->
+            <img src= "https://logomoose-wbmavbl.stackpathdns.com/wp-content/uploads/2016/09/webapp.png"
+                 style= "width:430px; height:200px;" >
+            <div id="nav"></div>
+
+            <form id="login_form" method="post" onsubmit="action()">
+                Email:<br />
+                <input name="email" id="email" type="text" /><br />
+                Password:<br />
+                <input name="password" id="password" type="password" /><br />
+                <input type="submit" name="Login" value="Login">
+                <input type="submit" name="Signup" value="Sign Up">
+            </form>
+        </div>
         <script type="text/javascript" src="/javascripts/navbar.js"></script>
     </body>
 </html>
