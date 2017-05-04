@@ -14,12 +14,12 @@ function User(){
     this.pw = "";
 }
 
-User.prototype.login = function(first,last,pw,onSuccess,onFail){
+User.prototype.login = function(email,password,onSuccess,onFail){
 
     var success = function(rows){
-        console.log("Success!");
+        console.log("Login Success!");
         if(rows.length > 0) {
-            console.log("User found! First name: " + rows[0].firstName + " Last name: " + rows[0].lastName + " PW: " + rows[0].password);
+            console.log("First name: " + rows[0].firstName + " Last name: " + rows[0].lastName + " email: " + rows[0].password);
             onSuccess(true);
             return;
         }
@@ -31,7 +31,11 @@ User.prototype.login = function(first,last,pw,onSuccess,onFail){
         onFail(err);
     };
 
-    db.sendQuery("SELECT * FROM Students WHERE firstName=? AND lastName=? AND password=?",[first,last,pw],success,fail);
+    db.sendQuery("SELECT * FROM Users WHERE email=? AND password=?",[email,password],success,fail);
+};
+
+User.prototype.register = function(){
+
 };
 
 module.exports = new User();

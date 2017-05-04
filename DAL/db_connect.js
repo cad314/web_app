@@ -67,23 +67,3 @@ DatabaseConnector.prototype.sendQuery = function(query,queryValues,onSuccess,onF
 };
 
 module.exports = new DatabaseConnector();
-
-/*
-var conn = mysql.createConnection(({
-    host:"blue.cs.sonoma.edu",
-    user:"jdevincenzi",
-    password:"003930490",
-    database:"test_database"
-}));
-
-conn.connect(function(err){
-    if(err){
-        console.log("Error connecting to DB: " + err.message);
-        return;
-    }
-    console.log("Connection successful!")
-    conn.end();
-});
-
-module.exports = conn;
-*/
