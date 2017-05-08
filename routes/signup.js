@@ -7,8 +7,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    console.log(req.body);
-
     //Choose between student or instructor signup
     if(req.body.instructor === undefined){
         res.redirect("/signup/student");

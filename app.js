@@ -4,18 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mysql = require('mysql');
 
-//Connect to database
-var db_connection = require('./DAL/db_connect.js');//Database connection
-
-var index = require('./routes/index');
-var calendar = require('./routes/calendar');//Added page
-var student = require('./routes/student');
-var instructor = require('./routes/instructor');
-var signup = require('./routes/signup');
-
-global.app = express();
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,12 +19,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+module.exports = app;//App must be exported before
+
+//Application level variables
+app.locals.database = require('./DAL/Database_DAL');
+app.locals.user = require('./DAL/User_DAL');
+
+//Routes and pages
+var index = require('./routes/index');
+var calendar = require('./routes/calendar');
+var student = require('./routes/student');
+var instructor = require('./routes/instructor');
+var signup = require('./routes/signup');
+
 app.use('/', index);
-app.use('/calendar', calendar);//Added pages
+app.use('/calendar', calendar);
 app.use('/student', student);
 app.use('/instructor', instructor);
 app.use('/signup', signup);
-// app.use('/psignup', signup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,8 +53,6 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
-});
 
-module.exports.db_connection = db_connection;
-module.exports = app;
+    res.render('productionError',{title: "Error"});
+});

@@ -1,6 +1,8 @@
 var express = require('express');
-var user_dal = require('../DAL/User_DAL');
 var router = express.Router();
+var debug = require('debug');
+var app = require('./../app');
+var user = app.locals.user;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,7 +12,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
     //Choose between login or signup
-    if(req.body.signup == undefined){
+    if(req.body.signup === undefined){
         login(req,res);//Perform login action if signup was undefined
     }
     else{
@@ -21,33 +23,54 @@ router.post('/', function(req, res, next) {
 function login(req,res){
     var formData = req.body;
 
-    user_dal.login(formData.email,formData.password,function(logged,rows){
-        if(logged){
-            app.locals.UserData = rows[0];
-            app.locals.logged = true;
-            if(rows[0].isStudent){
+    var calendarPage = function () {
+
+        debug.log("User appointments found!");
+        debug.log(user.appointments);
+        res.redirect("/calendar");
+    };
+
+    var profilePage = function (res) {
+        user.getExtraData(function () {
+            //Go to type specific profile page
+            if(user.isStudent){
                 res.redirect("/student");
-                //res.render('student', { title: 'Student Profile', data: app.locals.UserData});
             }
             else {
                 res.redirect("/instructor");
-                //res.render('instructor', { title: 'Instructor Profile', data: app.locals.UserData});
             }
-        }
-        else{
-            console.log("Bad login");
-            app.locals.logged = false;
-            res.render('index', { title: 'Home'});
-        }
+        },function () {
+            //Go to type specific profile page
+            if(user.isStudent){
+                res.redirect("/student");
+            }
+            else {
+                res.redirect("/instructor");
+            }
+        }, error);
+    };
 
-    },function(err){
-        app.locals.logged = false;
+    user.login(formData.email,formData.password, function() {
+        //Get appointment data (if any exists)
+        //On success go to calendar page, otherwise go to profile
+        user.getAppointmentData(calendarPage,profilePage,error);
+        return;
+    },function () {
+        debug.log("Bad login credentials.");
         res.render('index', { title: 'Home'});
+    },function(err){
+        res.render('index', { title: 'Home'});
+        error(err);
     });
 }
 
 function signup(req,res){
     res.redirect("/signup");
+}
+
+function error(err) {
+    debug.log("An unexpected error occurred:");
+    debug.log(err.message);
 }
 
 module.exports = router;

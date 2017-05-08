@@ -3,12 +3,13 @@
  */
 var express = require('express');
 var router = express.Router();
+var app = require('./../app');
+var user = app.locals.user;
 
 router.get('/', function(req, res, next) {
-    console.log(req.body);
     //Render the page is user is logged in and user is a student
-    if(app.locals.logged && app.locals.UserData.isStudent == 0){
-        res.render('instructor', { title: 'Instructor', data: app.locals.UserData });
+    if(user.logged_in && user.isStudent == 0){
+        res.render('instructor', { title: 'Instructor', user: user });
     }
     else{
         res.redirect("../");//Go back to home page

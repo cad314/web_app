@@ -1,7 +1,6 @@
 /**
  * Created by CAD on 024 04/24/2017.
  */
-
 var mysql = require('mysql');
 
 function DatabaseConnector() {
