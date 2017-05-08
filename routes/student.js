@@ -1,12 +1,22 @@
 /**
  * Created by CAD on 024 04/24/2017.
  */
+//var app = require('./../app');
 var express = require('express');
 var router = express.Router();
+var app = require('./../app');
+var user = app.locals.user;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('student', { title: 'Student' });
+
+    //Render the page is user is logged in and user is a student
+    if(user.logged_in && user.isStudent > 0){
+        res.render('student', { title: 'Student', user: user });
+    }
+    else{
+        res.redirect("../");//Go back to home page
+    }
 });
 
 module.exports = router;

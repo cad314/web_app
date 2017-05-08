@@ -1,31 +1,76 @@
 var express = require('express');
-var user_dal = require('../DAL/User_DAL');
 var router = express.Router();
+var debug = require('debug');
+var app = require('./../app');
+var user = app.locals.user;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(req.body);
-    res.render('index', { title: 'Home', logged_in: false});
+    res.render('index', { title: 'Home'});
 });
 
 router.post('/', function(req, res, next) {
-    console.log(req.body);
-    res.render('index', { title: 'Home', logged_in: false});
+
+    //Choose between login or signup
+    if(req.body.signup === undefined){
+        login(req,res);//Perform login action if signup was undefined
+    }
+    else{
+        signup(req,res);
+    }
 });
 
-function action(){
-    console.log(req.body);
-    user_dal.login("cad314","is THE BOMB!",function(logged){
-        if(logged){
-            res.render('index', { title: 'Home of Carlos', logged_in: true});
-        }
-        else{
-            res.render('index', { title: 'Home of Nobody', logged_in: false});
-        }
+function login(req,res){
+    var formData = req.body;
 
+    var calendarPage = function () {
+
+        debug.log("User appointments found!");
+        debug.log(user.appointments);
+        res.redirect("/calendar");
+    };
+
+    var profilePage = function (res) {
+        user.getExtraData(function () {
+            //Go to type specific profile page
+            if(user.isStudent){
+                res.redirect("/student");
+            }
+            else {
+                res.redirect("/instructor");
+            }
+        },function () {
+            //Go to type specific profile page
+            if(user.isStudent){
+                res.redirect("/student");
+            }
+            else {
+                res.redirect("/instructor");
+            }
+        }, error);
+    };
+
+    user.login(formData.email,formData.password, function() {
+        //Get appointment data (if any exists)
+        //On success go to calendar page, otherwise go to profile
+        user.getAppointmentData(calendarPage,profilePage,error);
+        return;
+    },function () {
+        debug.log("Bad login credentials.");
+        res.render('index', { title: 'Home'});
     },function(err){
-        res.render('index', { title: 'Home', logged_in: false});
+        res.render('index', { title: 'Home'});
+        error(err);
     });
+}
+
+function signup(req,res){
+    res.redirect("/signup");
+}
+
+function error(err) {
+    debug.log("An unexpected error occurred:");
+    debug.log(err.message);
 }
 
 module.exports = router;

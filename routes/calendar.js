@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var app = require('./../app');
+var user = app.locals.user;
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('calendar', { title: 'Calendar' });
+    if(user.logged_in){
+        res.render('calendar', { title: 'Calendar', user: user});
+    }
+    else{
+        res.redirect("../");//Go back to home page
+    }
 });
 
 module.exports = router;
