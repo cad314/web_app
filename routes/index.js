@@ -20,6 +20,12 @@ router.post('/', function(req, res, next) {
     }
 });
 
+
+//Runs tests for debugging
+router.get('/test',function (res,req,next) {
+    user.test();
+});
+
 router.get('/logout', function (req, res, next) {
     user.logout();
     res.redirect('../');
@@ -29,7 +35,7 @@ function login(req,res){
     var formData = req.body;
 
     var error = function(err){
-        debug.log("Error occured: " + err.message);
+        debug.log("Error occurred: " + err.message);
     };
 
     var profilePage = function (res) {
