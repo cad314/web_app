@@ -16,6 +16,7 @@ function User(){
     this.appointments = null;
 }
 
+//Logs out the user
 User.prototype.logout = function(){
     this.logged_in = false;
     this.userID = 0;
@@ -190,7 +191,10 @@ User.prototype.register = function(firstName, lastName, email, password, isStude
 User.prototype.registerStudent = function(email,phone,major,minor,onSuccess,onErr){
 
     var newStudent = function(rows){
-        var Query = "INSERT INTO `test_database`.`Students` (`firstName`, `lastName`, `password`, `email`, `isStudent`) VALUES (?, ?, ?, ?, ?);";
+        var Query = "INSERT INTO `test_database`.`Students` (`phoneNo`, `major`, `minor`, `userID`) VALUES (?, ?, ?, ?);";
+        var userID = rows[0].userID;
+
+        db.sendQuery(Query,[phone,major,minor,userID],onSuccess,onErr);
     };
 
     //Get user ID, pass to new student query
