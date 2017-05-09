@@ -3,8 +3,8 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.button a {
+    text-decoration:none;
 }
 
 .container {
@@ -14,9 +14,59 @@ a {
     text-align: center;
     /*width: 100%;*/
 
-
-
-
-
-
  }
+
+.button {
+    /*background-color: #4CAF50; !* Green *!*/
+    border: none;
+    padding: 14px 40px;
+    width: 15%;
+    text-align: center;
+    display: inline-block;
+    font-size: 75px;
+    /*margin: 50px;*/
+}
+
+
+.floating-box {
+    display: inline-block;
+    width: 150px;
+    height: 75px;
+    margin: 10px;
+    border: 3px solid #73AD21;
+}
+
+.right {
+    text-align: right;
+
+}
+
+
+.table {
+    margin: auto;
+    width: 50%;
+    font-size: 15px;
+    /*text-align: center;*/
+
+}
+
+.table tr td{
+
+    width: 48%;
+    margin: 2%;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
