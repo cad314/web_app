@@ -20,26 +20,26 @@ router.post('/', function(req, res, next) {
     }
 });
 
+
+//Runs tests for debugging
+router.get('/test',function (res,req,next) {
+    user.test();
+});
+
+router.get('/logout', function (req, res, next) {
+    user.logout();
+    res.redirect('../');
+});
+
 function login(req,res){
     var formData = req.body;
 
-    var calendarPage = function () {
-
-        debug.log("User appointments found!");
-        debug.log(user.appointments);
-        res.redirect("/calendar");
+    var error = function(err){
+        debug.log("Error occurred: " + err.message);
     };
 
     var profilePage = function (res) {
         user.getExtraData(function () {
-            //Go to type specific profile page
-            if(user.isStudent){
-                res.redirect("/student");
-            }
-            else {
-                res.redirect("/instructor");
-            }
-        },function () {
             //Go to type specific profile page
             if(user.isStudent){
                 res.redirect("/student");
@@ -52,9 +52,14 @@ function login(req,res){
 
     user.login(formData.email,formData.password, function() {
         //Get appointment data (if any exists)
-        //On success go to calendar page, otherwise go to profile
-        user.getAppointmentData(calendarPage,profilePage,error);
-        return;
+        //On success go to profile
+        user.getExtraData(function () {
+            user.getAppointmentData(function () {
+                profilePage(res);
+            },error);
+        },function () {
+            error(err);
+        });
     },function () {
         debug.log("Bad login credentials.");
         res.render('index', { title: 'Home'});

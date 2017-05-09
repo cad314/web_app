@@ -12,7 +12,7 @@ function DatabaseConnector() {
     this.connected = false;
 
     //Create connection
-    this.connection = mysql.createConnection(({host:this.host,user:this.user,password:this.password,database:this.database}));
+    this.connection = mysql.createConnection(({host:this.host,user:this.user,password:this.password,database:this.database,multipleStatements: true}));
 }
 
 DatabaseConnector.prototype.connect = function(callback){
