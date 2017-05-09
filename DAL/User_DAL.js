@@ -62,7 +62,7 @@ User.prototype.login = function(email,password,onSuccess,onFail,onErr){
     db.sendQuery("SELECT firstName, lastName, email, userID, isStudent FROM Users WHERE email=? AND password=?",[email,password],success,error);
 };
 
-User.prototype.getExtraData = function(onSuccess,onFail,onErr){
+User.prototype.getExtraData = function(onSuccess,onErr){
     var self = this;
 
     if(!self.logged_in){
@@ -75,14 +75,14 @@ User.prototype.getExtraData = function(onSuccess,onFail,onErr){
             debug.log("Extra data acquired!");
 
             //Update User type data, while ignoring userID in results
-            self.extraData = rows[0].splice(rows[0].indexOf("userID"),1);
+            self.extraData = rows[0];
 
             debug.log(self.extraData);
 
             onSuccess();
         }
-        else {
-            onfail();
+        else{
+            debug.log("No extra user data found!");
         }
     };
 
@@ -100,7 +100,7 @@ User.prototype.getExtraData = function(onSuccess,onFail,onErr){
     }
 };
 
-User.prototype.getAppointmentData = function(onSuccess,onFail,onErr){
+User.prototype.getAppointmentData = function(onSuccess,onErr){
     var self = this;
 
     if(!self.logged_in){
@@ -109,17 +109,12 @@ User.prototype.getAppointmentData = function(onSuccess,onFail,onErr){
 
     var success = function(rows){
 
-        if(rows.length > 0) {
-            debug.log("Appointment data acquired!");
+        debug.log("Appointment data acquired!");
 
-            self.appointments = rows;
-            debug.log(self.appointments);
+        self.appointments = rows;
+        debug.log(self.appointments);
 
-            onSuccess();
-        }
-        else {
-            onFail();
-        }
+        onSuccess();
     };
 
     var error = function(err){
@@ -144,10 +139,69 @@ User.prototype.getAppointmentData = function(onSuccess,onFail,onErr){
     }
 };
 
-User.prototype.register = function(firstName, lastName, email, password, onSuccess, onFail, onErr){
+User.prototype.register = function(firstName, lastName, email, password, isStudent, extraData, onSuccess, onFail, onErr){
+
+    var self = this;
+
+    var newUser = function(rows){
+
+        if(rows.length > 0){
+            debug.log("User email already exists. Registration stopped.");
+            onFail();
+        }
+        else{
+            debug.log("Ready to add user! First: " + firstName + " Last: " + lastName + " Email: " + email + " PW: " + password + " Student: " + String(isStudent));
+
+            var Query = "INSERT INTO `test_database`.`Users` (`firstName`, `lastName`, `password`, `email`, `isStudent`) VALUES (?, ?, ?, ?, ?);";
+
+            if(isStudent){
+                //Register new student
+                db.sendQuery(Query,[firstName,lastName,password,email,1],
+                    function(){
+                        self.registerStudent(email,extraData.phoneNo,extraData.major,extraData.minor,onSuccess,error);
+                    },
+                    function(err){
+                        error(err);
+                    });
+            }
+            else{
+                db.sendQuery(Query,[firstName,lastName,password,email,0],
+                    function(){
+                        self.registerProf(email,extraData.deptName,extraData.officePhone,onSuccess,error);
+                    },
+                    function(err){
+                        error(err);
+                    });
+            }
+        }
+    };
+
+    var error = function(err){
+        debug.log("An error occurred: " + err.message);
+        onErr(err);
+    };
 
     //Check whether user exists
+    Query = "SELECT * FROM Users WHERE email = ?";
 
+    db.sendQuery(Query,[email],newUser,error);
+};
+
+User.prototype.registerStudent = function(email,phone,major,minor,onSuccess,onErr){
+
+    var newStudent = function(rows){
+        var Query = "INSERT INTO `test_database`.`Students` (`firstName`, `lastName`, `password`, `email`, `isStudent`) VALUES (?, ?, ?, ?, ?);";
+    };
+
+    //Get user ID, pass to new student query
+    db.sendQuery("SELECT * FROM Users WHERE email = ?",[email],newStudent,onErr);
+};
+
+User.prototype.registerProf = function(email,dept,office,onSuccess,onErr){
+
+};
+
+User.prototype.updateUser = function(isStudent,first,last,password,extraData,onSuccess,onFail,onErr){
 
 };
 
