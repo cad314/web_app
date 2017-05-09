@@ -4,9 +4,11 @@
         <title><%= title %></title>
         <link rel='stylesheet' href='/stylesheets/style.css' />
     </head>
+
     <body>
         <!--<h1><%= title %></h1>-->
         <div class = "right">
+            <p> <a href="/calendar"> Home </a></p>
             <p> <a href="/logout">Logout</a></p>
         </div>
 
@@ -15,12 +17,10 @@
             <br>
         </div>
 
-
         <table class="table">
 
             <tr>
                 <td>Phone Number: <a><%= user.extraData.phoneNo%></a></td>
-
                 <td>Email: <a><%= user.email%></a></td>
             </tr>
 
@@ -35,7 +35,6 @@
 
                 </td>
             </tr>
-
         </table>
 
     </body>
