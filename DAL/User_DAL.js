@@ -140,9 +140,7 @@ User.prototype.getAppointmentData = function(onSuccess,onErr){
     }
 };
 
-User.prototype.register = function(firstName, lastName, email, password, isStudent, extraData, onSuccess, onFail, onErr){
-
-    var self = this;
+User.prototype.register = function(firstName, lastName, email, password, isStudent, onSuccess, onFail, onErr){
 
     var newUser = function(rows){
 
@@ -155,25 +153,15 @@ User.prototype.register = function(firstName, lastName, email, password, isStude
 
             var Query = "INSERT INTO `test_database`.`Users` (`firstName`, `lastName`, `password`, `email`, `isStudent`) VALUES (?, ?, ?, ?, ?);";
 
-            if(isStudent){
-                //Register new student
-                db.sendQuery(Query,[firstName,lastName,password,email,1],
-                    function(){
-                        self.registerStudent(email,extraData.phoneNo,extraData.major,extraData.minor,onSuccess,error);
-                    },
-                    function(err){
-                        error(err);
-                    });
-            }
-            else{
-                db.sendQuery(Query,[firstName,lastName,password,email,0],
-                    function(){
-                        self.registerProf(email,extraData.deptName,extraData.officePhone,onSuccess,error);
-                    },
-                    function(err){
-                        error(err);
-                    });
-            }
+            //Register new student
+            var student = result ? 1 : 0;
+            db.sendQuery(Query,[firstName,lastName,password,email,student],
+                function(rows){
+                    onSuccess(rows);
+                },
+                function(err){
+                    error(err);
+                });
         }
     };
 
@@ -188,25 +176,83 @@ User.prototype.register = function(firstName, lastName, email, password, isStude
     db.sendQuery(Query,[email],newUser,error);
 };
 
-User.prototype.registerStudent = function(email,phone,major,minor,onSuccess,onErr){
+//Passes the new user ID to the 'onSuccess' function
+User.prototype.registerStudent = function(first,last,email,password,phone,major,minor,onSuccess,onErr){
 
-    var newStudent = function(rows){
-        var Query = "INSERT INTO `test_database`.`Students` (`phoneNo`, `major`, `minor`, `userID`) VALUES (?, ?, ?, ?);";
-        var userID = rows[0].userID;
+    var Query = "INSERT INTO `test_database`.`Students` (`phoneNo`, `major`, `minor`, `userID`) VALUES (?, ?, ?, ?);";
 
-        db.sendQuery(Query,[phone,major,minor,userID],onSuccess,onErr);
-    };
+    this.register(first,last,email,password,1,
+        function (rows) {
+            var userID = rows.insertId;
 
-    //Get user ID, pass to new student query
-    db.sendQuery("SELECT * FROM Users WHERE email = ?",[email],newStudent,onErr);
+            db.sendQuery(Query,[phone,major,minor,userID],
+                function () {
+                    onSuccess(userID);
+                },
+                function (err) {
+                    onErr(err);
+                }
+            );
+        },function (err) {
+            onErr(err);
+        }
+    );
 };
 
-User.prototype.registerProf = function(email,dept,office,onSuccess,onErr){
+User.prototype.registerProf =function(first,last,email,password,dept,office,onSuccess,onErr){
 
+    var Query = "INSERT INTO `test_database`.`Professors` (`deptName`, `officePhone`, `userID`) VALUES (?, ?, ?);";
+
+    this.register(first,last,email,password,0,
+        function (rows) {
+            var userID = rows.insertId;
+
+            db.sendQuery(Query,[dept,office,userID],
+                function () {
+                    onSuccess(userID);
+                },
+                function (err) {
+                    onErr(err);
+                }
+            );
+        },function (err) {
+            onErr(err);
+        }
+    );
 };
 
-User.prototype.updateUser = function(isStudent,first,last,password,extraData,onSuccess,onFail,onErr){
+User.prototype.updateStudent = function(first,last,password,phone,major,minor,onSuccess,onErr){
 
+    var Query = "UPDATE 'test_database'.'Users' SET 'firstName' = ?, 'lastName' = ?, 'password' = ? WHERE 'userID' = ? ";
+    Query += "UPDATE `test_database`.`Students` SET `phoneNo`= ?, 'major' = ?, 'minor' = ? WHERE `userID` = ?;";
+
+    db.sendQuery(Query,[first,last,password,user.userID,phone,major,minor,user.userID],onSuccess,onErr);
+};
+
+User.prototype.updateProf = function (first,last,password,dept,officeNo,onSuccess,onErr) {
+
+    var Query = "UPDATE 'test_database'.'Users' SET 'firstName' = ?, 'lastName' = ?, 'password' = ? WHERE 'userID' = ? ";
+    Query += "UPDATE `test_database`.`Professors` SET `deptName`= ?, 'officePhone' = ? WHERE `userID` = ?;";
+
+    db.sendQuery(Query,[first,last,password,user.userID,dept,officeNo,user.userID],onSuccess,onErr);
+};
+
+//Returns a list of all professors, containing their first name, last name, email and userID.
+User.prototype.getProfessorData = function (onSuccess,onErr) {
+    var Query = "SELECT firstName, lastName, email, userID FROM test_database.Users WHERE isStudent = 0;";
+
+    db.sendQuery(Query,[],
+        function (rows) {
+            onSuccess(rows);
+        },
+        function (err) {
+            onErr(err);
+        }
+    )
+};
+
+User.prototype.test = function () {
+    debug.log("The test function was called");
 };
 
 module.exports = new User();
