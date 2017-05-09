@@ -37,7 +37,6 @@ User.prototype.login = function(email,password,onSuccess,onFail,onErr){
     var success = function(rows){
 
         if(rows.length > 0) {
-            debug.log("Login Success!");
 
             //Update User basic data
             self.logged_in = true;
@@ -56,14 +55,13 @@ User.prototype.login = function(email,password,onSuccess,onFail,onErr){
     };
 
     var error = function(err){
-        debug.log("An error occurred: " + err.message);
         onErr(err);
     };
 
     db.sendQuery("SELECT firstName, lastName, email, userID, isStudent FROM Users WHERE email=? AND password=?",[email,password],success,error);
 };
 
-User.prototype.getExtraData = function(onSuccess,onErr){
+User.prototype.getExtraData = function(onSuccess,onEmpty,onErr){
     var self = this;
 
     if(!self.logged_in){
@@ -73,7 +71,6 @@ User.prototype.getExtraData = function(onSuccess,onErr){
     var success = function(rows){
 
         if(rows.length > 0) {
-            debug.log("Extra data acquired!");
 
             //Update User type data, while ignoring userID in results
             self.extraData = rows[0];
@@ -83,12 +80,11 @@ User.prototype.getExtraData = function(onSuccess,onErr){
             onSuccess();
         }
         else{
-            debug.log("No extra user data found!");
+            onEmpty();
         }
     };
 
     var error = function(err){
-        debug.log("An error occured: " + err.message);
         onErr(err);
     };
 
@@ -110,8 +106,6 @@ User.prototype.getAppointmentData = function(onSuccess,onErr){
 
     var success = function(rows){
 
-        debug.log("Appointment data acquired!");
-
         self.appointments = rows;
         debug.log(self.appointments);
 
@@ -119,7 +113,6 @@ User.prototype.getAppointmentData = function(onSuccess,onErr){
     };
 
     var error = function(err){
-        debug.log("An error occurred: " + err.message);
         onErr(err);
     };
 
@@ -145,12 +138,9 @@ User.prototype.register = function(firstName, lastName, email, password, isStude
     var newUser = function(rows){
 
         if(rows.length > 0){
-            debug.log("User email already exists. Registration stopped.");
             onFail();
         }
         else{
-            debug.log("Ready to add user! First: " + firstName + " Last: " + lastName + " Email: " + email + " PW: " + password + " Student: " + String(isStudent));
-
             var Query = "INSERT INTO `test_database`.`Users` (`firstName`, `lastName`, `password`, `email`, `isStudent`) VALUES (?, ?, ?, ?, ?);";
 
             //Register new student
@@ -166,7 +156,6 @@ User.prototype.register = function(firstName, lastName, email, password, isStude
     };
 
     var error = function(err){
-        debug.log("An error occurred: " + err.message);
         onErr(err);
     };
 
@@ -177,7 +166,7 @@ User.prototype.register = function(firstName, lastName, email, password, isStude
 };
 
 //Passes the new user ID to the 'onSuccess' function
-User.prototype.registerStudent = function(first,last,email,password,phone,major,minor,onSuccess,onErr){
+User.prototype.registerStudent = function(first,last,email,password,phone,major,minor,onSuccess,onFail,onErr){
 
     var Query = "INSERT INTO `test_database`.`Students` (`phoneNo`, `major`, `minor`, `userID`) VALUES (?, ?, ?, ?);";
 
@@ -193,13 +182,16 @@ User.prototype.registerStudent = function(first,last,email,password,phone,major,
                     onErr(err);
                 }
             );
-        },function (err) {
+        },function(rows){
+            onFail(rows);
+        },
+        function (err) {
             onErr(err);
         }
     );
 };
 
-User.prototype.registerProf =function(first,last,email,password,dept,office,onSuccess,onErr){
+User.prototype.registerProf =function(first,last,email,password,dept,office,onSuccess,onFail,onErr){
 
     var Query = "INSERT INTO `test_database`.`Professors` (`deptName`, `officePhone`, `userID`) VALUES (?, ?, ?);";
 
@@ -215,7 +207,10 @@ User.prototype.registerProf =function(first,last,email,password,dept,office,onSu
                     onErr(err);
                 }
             );
-        },function (err) {
+        },function(rows){
+            onFail(rows);
+        },
+        function (err) {
             onErr(err);
         }
     );

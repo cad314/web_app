@@ -10,17 +10,6 @@ router.get('/', function(req, res, next) {
     res.render('choose_user', { title: 'CALENDAR APP' });
 });
 
-// router.post('/', function(req, res, next) {
-
-    //Choose between student or instructor signup
-    // if(req.body.instructor === undefined){
-    //     res.redirect("/signup/student");
-    // }
-    // else{
-    //     res.redirect("/signup/professor");
-    // }
-// });
-
 router.get('/student', function(req, res, next) {
     res.render('student_signup', { title: 'CALENDAR APP' });
 });
@@ -41,6 +30,11 @@ router.post('/student', function(req, res, next) {
             user.logout();
             res.redirect("../");
         },
+        function(){
+            debug.log("Student already exists. User not added.");
+            user.logout();
+            res.redirect("../");
+        },
         function (err) {
             debug.log("Failed! Error: " + err.message);
             user.logout();
@@ -58,6 +52,11 @@ router.post('/professor', function(req, res, next) {
     user.registerProf(form.fname,form.lname,form.email,form.pw,form.dept,form.office,
         function (id) {
             debug.log("Success! New professor id: " + id);
+            user.logout();
+            res.redirect("../");
+        },
+        function(){
+        debug.log("Professor already exists. User not added.");
             user.logout();
             res.redirect("../");
         },
