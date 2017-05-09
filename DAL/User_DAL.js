@@ -154,7 +154,7 @@ User.prototype.register = function(firstName, lastName, email, password, isStude
             var Query = "INSERT INTO `test_database`.`Users` (`firstName`, `lastName`, `password`, `email`, `isStudent`) VALUES (?, ?, ?, ?, ?);";
 
             //Register new student
-            var student = result ? 1 : 0;
+            var student = isStudent ? 1 : 0;
             db.sendQuery(Query,[firstName,lastName,password,email,student],
                 function(rows){
                     onSuccess(rows);
