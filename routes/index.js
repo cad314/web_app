@@ -46,10 +46,10 @@ function login(req,res){
         user.getExtraData(function () {
             //Go to type specific profile page
             if(user.isStudent){
-                res.redirect("/student");
+                res.redirect("/profile/student");
             }
             else {
-                res.redirect("/instructor");
+                res.redirect("/profile/professor");
             }
         }, noData, error);
     };

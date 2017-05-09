@@ -6,12 +6,12 @@
     </head>
     <body>
         <div class = "container">
-            <h3>Sorry! An unexpected error occurred.</h3>
+            <h3>Sorry! An error occurred. Perhaps the wrong URL?</h3>
 
-            <p>Please <a href="/">click here</a> to go back to the home page.</p>
-            <h1><%= message %></h1>
-            <h2><%= error.status %></h2>
-            <p><%= error.stack %></p>
+            <h2>Please <a href="/">click here</a> to go back to the home page.</h2>
+            <h1>Error: <%= message %></h1>
+            <h2><b>Stack </b><%= error.status %></h2>
+            <p style="text-align: left">Stack: <%= error.stack %></p>
         </div>
     </body>
 </html>
