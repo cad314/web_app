@@ -2,6 +2,7 @@
 let React = require("react");
 let ReactDOM = require("react-dom");
 let Calendar = require("./react_calendar.jsx");
+let Dropdown = require("./react_dropdown.jsx");
 
 ReactDOM.render(
     React.createElement(Calendar, {
@@ -13,3 +14,5 @@ ReactDOM.render(
     }),
     document.getElementById("calendar")
 );
+
+ReactDOM.render(React.createElement(Dropdown),document.getElementById("dropdown"));
