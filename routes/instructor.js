@@ -8,7 +8,7 @@ var user = app.locals.user;
 
 router.get('/', function(req, res, next) {
     //Render the page is user is logged in and user is a student
-    if(user.logged_in && user.isStudent == 0){
+    if(user.logged_in && user.isStudent === 0){
         res.render('instructor', { title: 'Instructor', user: user });
     }
     else{

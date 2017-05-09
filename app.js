@@ -29,15 +29,18 @@ app.locals.user = require('./DAL/User_DAL');
 //Routes and pages
 var index = require('./routes/index');
 var calendar = require('./routes/calendar');
-var student = require('./routes/student');
-var instructor = require('./routes/instructor');
+//var student = require('./routes/student');
+//var instructor = require('./routes/instructor');
 var signup = require('./routes/signup');
+var profile = require('./routes/profile');
+
 
 app.use('/', index);
 app.use('/calendar', calendar);
-app.use('/student', student);
-app.use('/instructor', instructor);
+//app.use('/student', student);
+//app.use('/instructor', instructor);
 app.use('/signup', signup);
+app.use('/profile', profile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
