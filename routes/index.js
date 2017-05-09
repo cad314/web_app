@@ -20,6 +20,11 @@ router.post('/', function(req, res, next) {
     }
 });
 
+router.get('/logout', function (req, res, next) {
+    user.logout();
+    res.redirect('../');
+});
+
 function login(req,res){
     var formData = req.body;
 
