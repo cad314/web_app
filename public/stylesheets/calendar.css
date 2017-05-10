@@ -178,7 +178,7 @@ footer {
 }
 .r-calendar .r-prev:hover,
 .r-calendar .r-next:hover{
-    background-color: #0066CC;
+    background-color: #123a7a; /*0066CC*/
 }
 .r-calendar .r-title{
     flex-grow: 5;
@@ -214,11 +214,11 @@ footer {
 
 .r-calendar .r-cell.r-date.r-today{
     background-color: #ffffff;
-    border: solid 1px #0066CC;
+    border: solid 1px #123a7a;
 }
 .r-calendar .r-cell.r-date:not(.r-past):hover{
-    background-color: #0066CC;
-    border: solid 1px #0066CC;
+    background-color: #123a7a;
+    border: solid 1px #123a7a;
     color: #ffffff;
 }
 .r-calendar .r-cell.r-date.r-selected{
