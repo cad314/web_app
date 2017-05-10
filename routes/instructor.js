@@ -7,7 +7,7 @@ var app = require('./../app');
 var user = app.locals.user;
 
 router.get('/', function(req, res, next) {
-    //Render the page is user is logged in and user is a student
+    //Render the page if user is logged in and user is a professor
     if(user.logged_in && user.isStudent == 0){
         res.render('instructor', { title: 'Instructor', user: user });
     }
@@ -15,5 +15,7 @@ router.get('/', function(req, res, next) {
         res.redirect("../");//Go back to home page
     }
 });
+
+
 
 module.exports = router;

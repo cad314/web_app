@@ -1,0 +1,33 @@
+<%include header.ejs%>
+
+<div class = "navBar">
+    <a href="/profile">Profile</a>
+    <a href="/calendar">Book Appointment</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class = "container">
+    <h1> <a><%= user.first%></a> <a><%= user.last%></a> </h1>
+    <br>
+
+    <form id="login_form">
+        Email:<br />
+        <input name="email" id="user" type="text" /><br />
+        Password:<br />
+        <input name="psswd" id="user" type="password" /><br />
+        <br> <br>
+        Phone Number:<br />
+        <input name="phone" id="user" type="test" /><br />
+        Major:<br />
+        <input name="major" id="user" type="text" /><br />
+        Minor:<br />
+        <input name="minor" id="user" type="text" /><br />
+
+        <input type="submit" name="Submit" value="Submit">
+    </form>
+
+</div>
+
+
+
+<%include footer.ejs%>
