@@ -23,7 +23,7 @@ router.get('/student', function(req, res, next) {
         debug.log("redirected");
         res.redirect('../');
     }
-});
+}); 
 
 router.get('/student/edit', function(req, res, next) {
 
@@ -56,12 +56,34 @@ router.get('/professor/edit', function(req, res, next) {
     }
 });
 
-router.get('/submit', function (req, res, next) {
+router.post('/submit', function (req, res, next) {
+    // if the user is a professor and is logged in
     if(user.logged_in && user.isStudent == 0) {
-        debug.log(req.body);
-    }
-    else if(user.logged_in) {
+        var form = req.body;
 
+        debug.log("This is form data: " + form);
+
+        user.updateProf(form.email, form.psswd, form.dept, form.phone,
+            function (id) {
+                debug.log("Success! Information was updated for Professor ID: " + id);
+                res.render("/profile/professor");
+            }, function (err) {
+                debug.log("Error: " + err.message);
+            });
+    }
+            // if the user is a student
+    else if(user.logged_in) {
+        var form = req.body;
+
+        debug.log("This is form data: " + form);
+
+        user.updateStudent(form.email, form.psswd, form.phone, form.major, form.minor,
+            function (id) {
+                debug.log("Success! Information was updated for Student ID: " + id);
+                res.redirect("/profile/student");
+            }, function (err) {
+                debug.log("Error: " + err.message);
+            });
     }
     else{
         res.redirect('../'); //Go back to home page
