@@ -96,8 +96,8 @@ body {
 }
 
 #avail_submit {
-    width: 4em;
-    height: 40em;
+    width: 100px;
+    height: 25px;
     margin: auto;
     text-align: center;
     display: block;
