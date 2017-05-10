@@ -8,7 +8,6 @@ var router = express.Router();
 var app = require('./../app');
 var user = app.locals.user;
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
 
     //Render the page is user is logged in and user is a student

@@ -2,7 +2,8 @@
 let React = require("react");
 let ReactDOM = require("react-dom");
 let Calendar = require("./react_calendar.jsx");
-let Dropdown = require("./react_dropdown.jsx");
+var app = require("./../app");
+var user = app.locals.user;
 
 ReactDOM.render(
     React.createElement(Calendar, {
@@ -14,5 +15,3 @@ ReactDOM.render(
     }),
     document.getElementById("calendar")
 );
-
-ReactDOM.render(React.createElement(Dropdown),document.getElementById("dropdown"));

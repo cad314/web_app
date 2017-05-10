@@ -34,6 +34,10 @@ router.get('/logout', function (req, res, next) {
 function login(req,res){
     var formData = req.body;
 
+    var noData = function () {
+        debug.log("There was no extra data received from user.");
+    };
+
     var error = function(err){
         debug.log("Error occurred: " + err.message);
     };
@@ -42,12 +46,12 @@ function login(req,res){
         user.getExtraData(function () {
             //Go to type specific profile page
             if(user.isStudent){
-                res.redirect("/student");
+                res.redirect("/profile/student");
             }
             else {
-                res.redirect("/instructor");
+                res.redirect("/profile/professor");
             }
-        }, error);
+        }, noData, error);
     };
 
     user.login(formData.email,formData.password, function() {
@@ -57,9 +61,7 @@ function login(req,res){
             user.getAppointmentData(function () {
                 profilePage(res);
             },error);
-        },function () {
-            error(err);
-        });
+        },noData,error);
     },function () {
         debug.log("Bad login credentials.");
         res.render('index', { title: 'Home'});
