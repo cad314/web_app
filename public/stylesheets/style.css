@@ -51,12 +51,28 @@ body {
 
 }
 
+.table2 {
+    margin: auto;
+    width: 90%;
+    height: 70%;
+    font-size: 15px;
+    text-align: center;
+
+}
+
 .table tr td{
 
     width: 48%;
     margin: 2%;
     height: 25px;
 
+}
+
+.table2 tr td{
+    border-bottom: 1px solid #ddd;
+    width: 8%;
+    margin: 2%;
+    line-height: 4px;
 
 }
 
@@ -77,6 +93,15 @@ body {
 
 .navBar a:hover, .dropdown:hover .dropbtn {
     background-color: dodgerblue;
+}
+
+#avail_submit {
+    width: 4em;
+    height: 40em;
+    margin: auto;
+    text-align: center;
+    display: block;
+    font-size: 34px;
 }
 
 footer {

@@ -13,18 +13,19 @@
             <table class="table">
 
                 <tr>
-                    <td>Email: <a><%= user.extraData.email%></a></td>
+                    <td>Email: <a><%= user.email%></a></td>
+                    <td>Department: <a><%= user.extraData.deptName%></a></td>
                 </tr>
 
                 <tr>
-                    <td>Department: <a><%= user.extraData.deptName%></a></td>
+                    <td>Department Location: <a><%= user.extraData.location%></a></td>
                     <td>Office Phone: <a><%= user.extraData.officePhone%></a></td>
                 </tr>
 
             </table>
 
             <br/>
-            <a href="/edit">Edit Profile</a>
+            <a href="/profile/prof/edit">Edit Profile</a>
 
         </div>
         <br>
