@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <link rel='stylesheet' href='/stylesheets/calendar.css' />
-
-        <script type="text/javascript" src="/javascripts/test_connection.js"></script>
-    </head>
-    <body>
+<%include header.ejs%>
         <div class = "container">
             <!--<h1><%= title %></h1>-->
             <img src= "http://www.sonoma.edu/logos/logos/preview-sec-blue-box.jpg"
@@ -28,14 +19,5 @@
             <!--<p>For testing purposes only. <a href="test">Click here</a> to run test.</p>-->
 
         </div>
-        <script type="text/javascript" src="/javascripts/navbar.js"></script>
-
-        <br/>
-        <footer>
-            Copyright @ Devincenzi, Downie, Lam
-            <br/>
-            <br/>
-            May 10, 2017
-        </footer>
-    </body>
-</html>
+        <br>
+<%include footer.ejs%>

@@ -8,6 +8,11 @@
  *   http://www.gnu.org/licenses/gpl.html
  */
 var React = require("react");
+var debug = require("debug");
+var busyDayStr = document.getElementById("busyDays").innerHTML;
+var availList = document.getElementById("availability").innerHTML;
+var availability = availList.split(',').map(Number);
+var busyDays = busyDayStr.split(';').map(Number);
 
 var Calendar = React.createClass({
     displayName: 'Calendar',
@@ -80,6 +85,7 @@ var Calendar = React.createClass({
     selectDate: function (year, month, date, element) {
         if (this.state.selectedElement) {
             this.state.selectedElement.classList.remove('r-selected');
+
         }
         element.target.classList.add('r-selected');
         this.setState({
@@ -228,9 +234,33 @@ var MonthDates = React.createClass({
                                 );
                             }
 
+                            //Marks scheduled or unavailable days
+                            var day = Math.round(current.valueOf()/86400000);
+                            var regularDay = true;
+
+                            if(day >= 0 && busyDays.indexOf(day) > -1){
+                                className += ' scheduled';
+                                regularDay = false;
+                            }
+                            else if(busyDays.indexOf(-day) > -1){
+                                className += ' unavailable';
+                                regularDay = false;
+                            }
+
+                            //Shows days that are regularly available or by appointment only (if they aren't already scheduled/unavailable)
+                            if(regularDay){
+                                var todayVal = availability[current.getDay()];
+                                if(todayVal > 0){
+                                    className += ' open';
+                                }
+                                else if(todayVal < 0){
+                                    className += ' appointmentOnly'
+                                }
+                            }
+
                             return React.createElement(
                                 'div',
-                                { className: className, role: 'button', tabIndex: '0', onClick: that.props.onSelect.bind(that, that.props.year, that.props.month, d) },
+                                { className: className, key: current.valueOf(),role: 'button', tabIndex: '0', onClick: that.props.onSelect.bind(that, that.props.year, that.props.month, d) },
                                 d
                             );
                         }

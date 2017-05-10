@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <link rel='stylesheet' href='/stylesheets/calendar.css' />
-    </head>
-
-    <body>
+<%include header.ejs%>
         <!--<h1><%= title %></h1>-->
         <div class = "navBar">
-            <p> <a href="/calendar"> Calendar </a></p>
-            <p> <a href="/logout">Logout</a></p>
+            <a href="/calendar">Book Appointment</a>
+            <a href="/logout">Logout</a>
         </div>
 
         <div class = "container">
@@ -38,12 +30,6 @@
             </tr>
         </table>
 
-        <br/>
-        <footer>
-            Copyright @ Devincenzi, Downie, Lam
-            <br/>
-            <br/>
-            May 10, 2017
-        </footer>
-    </body>
-</html>
+        <br>
+        <br>
+<%include footer.ejs%>

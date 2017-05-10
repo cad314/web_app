@@ -1,23 +1,25 @@
+/*Custom calendar component styling*/
+
+/*THIS SETS OPEN/WALK-IN COLOR*/
+.r-calendar .r-cell.r-date.open {
+    background-color: rgba(10, 156, 221, 0.5);
+}
+
+/*THIS SETS APPOINTMENT ONLY COLOR*/
+.r-calendar .r-cell.r-date.appointmentOnly {
+    background-color: rgba(116, 213, 0, 0.5);
+}
+
+/*THIS SETS APPOINTMENTS SCHEDULED COLOR*/
+.r-calendar .r-cell.r-date.scheduled {
+    background-color: rgba(176, 0, 255, 0.51);
+}
+
+/*THIS SETS UNAVAILABLE DAY COLOR*/
+.r-calendar .r-cell.r-date.unavailable {
+    background-color: rgba(255, 5, 0, 0.51);
+}
 /*Custom styling for calendar page*/
-.navBar {
-    overflow: hidden;
-    background-color: #123a7a;
-    font-family: Arial;
-}
-
-.navBar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.navBar a:hover, .dropdown:hover .dropbtn {
-    background-color: dodgerblue;
-}
-
 .dropbtn {
     background-color: #123a7a;
     color: white;
@@ -63,27 +65,6 @@
 }
 
 .dropdown a:hover {background-color: #ddd}
-
-header {
-    padding: 1em;
-    color: white;
-    background-color: #123a7a;
-    clear: left;
-    font-family: Arial;
-    font-size: 100%;
-    text-align: center;
-}
-
-footer {
-    padding: 1em;
-    color: white;
-    background-color: #123a7a;
-    clear: left;
-    font-family: Arial;
-    font-size: 100%;
-    text-align: center;
-}
-
 
 .show {
     display: block;
@@ -199,6 +180,7 @@ footer {
     cursor: pointer;
     outline: none;
 }
+
 .r-calendar .r-cell.r-date.r-today{
     background-color: #ffffff;
     border: solid 1px #123a7a;

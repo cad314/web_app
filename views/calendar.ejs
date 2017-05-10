@@ -1,69 +1,20 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <link rel='stylesheet' href='/stylesheets/calendar.css' />
-    </head>
+<%include calendar_header.ejs%>
+        <div class="container">
+        <h1>Scheduler</h1>
+        </div>
 
-
-    <body>
-
-        <h1><%= title %></h1>
         <div class = 'navBar'>
             <a href="/profile">Profile</a>
             <a href="/">Log Out</a>
         </div>
         <br/>
 
+        <div id="availability" style="visibility: hidden;"><%=availability%></div>
+        <div id="busyDays" style="visibility: hidden;"><%=busyDays%></div>
 
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Choose A Professor</button>
-            <div id="myDropdown" class="dropdown-content">
-                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                <a href="#about">About</a>
-                <a href="#about">thing</a>
-                <a href="#about">fghjk</a>
-                <a href="#about">hello</a>
-                <a href="#about">hello world</a>
-            </div>
-        </div>
-
+        <%include drop_down.ejs%>
 
         <br/>
         <div id="calendar" style="max-width: 50%; margin: auto;"></div>
-        <script type="text/javascript" src="/javascripts/calendar.js"></script>
-        <script>
-            /* When the user clicks on the button,
-             toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
-
-            function filterFunction() {
-                var input, filter, ul, li, a, i;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                div = document.getElementById("myDropdown");
-                a = div.getElementsByTagName("a");
-                for (i = 0; i < a.length; i++) {
-                    if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        a[i].style.display = "";
-                    } else {
-                        a[i].style.display = "none";
-                    }
-                }
-            }
-        </script>
-
-        <br/>
-        <footer>
-            Copyright @ Devincenzi, Downie, Lam
-            <br/>
-            <br/>
-            May 10, 2017
-        </footer>
-
-
-    </body>
-</html>
+        <br>
+<%include calendar_footer.ejs%>

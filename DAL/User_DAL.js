@@ -14,6 +14,7 @@ function User(){
     this.isStudent = true;
     this.extraData = null;
     this.appointments = null;
+    this.professors = null;
 }
 
 //Logs out the user
@@ -26,6 +27,7 @@ User.prototype.logout = function(){
     this.isStudent = true;
     this.extraData = null;
     this.appointments = null;
+    this.professors = null;
 };
 
 //Looks for user with password and email address, updates user object
@@ -95,6 +97,54 @@ User.prototype.getExtraData = function(onSuccess,onEmpty,onErr){
     else{
         db.sendQuery("SELECT * FROM Professors WHERE userID = ?",[self.userID],success,error);
     }
+};
+
+User.prototype.getScheduledDays = function(student, userID, onSuccess, onErr){
+
+    var query = "";
+
+    if(student){
+        query = "SELECT * FROM test_database.Appointments WHERE day >= CURDATE() AND studentID = ?;";
+    }
+    else{
+        query = "SELECT * FROM test_database.Appointments WHERE day >= CURDATE() AND profID = ?;";
+    }
+
+    db.sendQuery(query,[userID],function (rows) {
+
+        var days = "";
+
+        var writeDay = function(item,index){
+
+            //Set value to negative if the day is unavailable
+            if(item.class === "UNAVAILABLE"){
+                days += ";-" + Math.round(item.day.valueOf()/86400000);
+            }
+            else {
+                days += ";" + Math.round(item.day.valueOf()/86400000);
+            }
+        };
+
+        //Read rows data and write to a string to return.
+        debug.log(rows);
+        rows.forEach(writeDay);
+
+        days = days.slice(1);
+
+        onSuccess(days);
+    },onErr);
+};
+
+User.prototype.getAvailability = function (profID,onSuccess,onErr) {
+    var query = "SELECT Mon, Tues, Wed, Thurs, Fri, Sat, Sun FROM test_database.Professors WHERE userID = ?;";
+
+    db.sendQuery(query,[profID],function (rows) {
+
+        var availability = rows[0].Sun + "," + rows[0].Mon + "," + rows[0].Tues + "," + rows[0].Wed;
+        availability += "," + rows[0].Thurs + "," + rows[0].Fri + "," + rows[0].Sat;
+
+        onSuccess(availability);
+    },onErr);
 };
 
 User.prototype.getAppointmentData = function(onSuccess,onErr){
@@ -235,10 +285,12 @@ User.prototype.updateProf = function (first,last,password,dept,officeNo,onSucces
 //Returns a list of all professors, containing their first name, last name, email and userID.
 User.prototype.getProfessorData = function (onSuccess,onErr) {
     var Query = "SELECT firstName, lastName, email, userID FROM test_database.Users WHERE isStudent = 0;";
+    var self = this;
 
     db.sendQuery(Query,[],
         function (rows) {
-            onSuccess(rows);
+            self.professors = rows;
+            onSuccess();
         },
         function (err) {
             onErr(err);

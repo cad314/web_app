@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <link rel='stylesheet' href='/stylesheets/calendar.css' />
-    </head>
+<%include calendar_header.ejs%>
+
+        <div class="container">
+            <h1><%=title%></h1>
+        </div>
 
 
-    <body>
-        <h1><%= title %></h1>
         <div class = 'navBar'>
             <a href="/profile">Profile</a>
             <a href="/">Log Out</a>
         </div>
 
         <br/>
+        <div id="availability" style="visibility: hidden;"><%=availability%></div>
+        <div id="busyDays" style="visibility: hidden;"><%=busyDays%></div>
         <div id="calendar" style="max-width: 50%; margin: auto;"></div>
         <script type="text/javascript" src="/javascripts/calendar.js"></script>
         <script>
@@ -40,13 +38,6 @@
             }
         </script>
 
-        <br/>
-        <footer>
-            Copyright @ Devincenzi, Downie, Lam
-            <br/>
-            <br/>
-            May 10, 2017
-        </footer>
-
-    </body>
-</html>
+        <br>
+        <br>
+<%include calendar_footer.ejs%>

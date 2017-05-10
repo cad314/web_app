@@ -7,15 +7,15 @@ var user = app.locals.user;
 
 router.get('/', function(req, res, next) {
     // res.render('signup', { title: 'CALENDAR APP' });
-    res.render('choose_user', { title: 'CALENDAR APP' });
+    res.render('choose_user', { title: 'Choose User Account' });
 });
 
 router.get('/student', function(req, res, next) {
-    res.render('student_signup', { title: 'CALENDAR APP' });
+    res.render('student_signup', { title: 'Student Signup' });
 });
 
 router.get('/professor', function(req, res, next) {
-    res.render('professor_signup', { title: 'CALENDAR APP' });
+    res.render('professor_signup', { title: 'Professor Signup' });
 });
 
 router.post('/student', function(req, res, next) {

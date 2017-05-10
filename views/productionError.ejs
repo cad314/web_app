@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-    </head>
-    <body>
+<%include header.ejs%>
         <div class = "container">
             <h3>Sorry! An error occurred. Perhaps the wrong URL?</h3>
 
@@ -13,5 +7,4 @@
             <h2><b>Stack </b><%= error.status %></h2>
             <p style="text-align: left">Stack: <%= error.stack %></p>
         </div>
-    </body>
-</html>
+<%include footer.ejs%>
