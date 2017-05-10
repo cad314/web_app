@@ -56,4 +56,16 @@ router.get('/professor/edit', function(req, res, next) {
     }
 });
 
+router.get('/submit', function (req, res, next) {
+    if(user.logged_in && user.isStudent == 0) {
+        debug.log(req.body);
+    }
+    else if(user.logged_in) {
+
+    }
+    else{
+        res.redirect('../'); //Go back to home page
+    }
+});
+
 module.exports = router;
