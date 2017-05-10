@@ -3,13 +3,14 @@
     <head>
         <title><%= title %></title>
         <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel='stylesheet' href='/stylesheets/calendar.css' />
     </head>
 
     <body>
         <!--<h1><%= title %></h1>-->
-        <div class = "right">
-            <p> <a href="/calendar"> Home </a></p>
-            <p> <a href="/logout">Logout</a></p>
+        <div class = "navBar">
+            <a href="/calendar">Book Appointment</a>
+            <a href="/logout">Logout</a>
         </div>
 
         <div class = "container">
@@ -36,6 +37,16 @@
                 </td>
             </tr>
         </table>
+
+        <br>
+        <br>
+
+        <footer>
+            Copyright @Stephanie, Jessica, Carlos
+            <br>
+            <br>
+            May 2017
+        </footer>
 
     </body>
 </html>
