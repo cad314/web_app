@@ -64,6 +64,16 @@
 
 .dropdown a:hover {background-color: #ddd}
 
+header {
+    padding: 1em;
+    color: white;
+    background-color: #123a7a;
+    clear: left;
+    font-family: Arial;
+    font-size: 100%;
+    text-align: center;
+}
+
 footer {
     padding: 1em;
     color: white;
