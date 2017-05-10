@@ -5,30 +5,22 @@ var app = require('./../app');
 var user = app.locals.user;
 
 router.get('/', function(req, res, next) {
+
     if(user.logged_in){
 
         if(user.isStudent){
             user.getProfessorData(function () {
                 debug.log("Professor data acquired! This is a student calendar.");
-                debug.log(user.professors);
 
-                user.getAvailability(user.professors[0].userID,
-                    function (avail) {
-                        debug.log("Availability acquired! Value: " + avail);
-                        user.getBusyDays(user.professors[0].userID,
-                            function (days) {
-                                debug.log("Days acquired! Days: " + days);
+                    user.getScheduledDays(true,user.userID,
+                        function (days) {
+                            debug.log("Days acquired! Days: " + days);
 
-                                res.render('calendar', { title: 'Calendar', user: user, availability: avail, busyDays: days});
-                            },function (err) {
-                                debug.log("There was an error getting instructor appt dates. Error: " + err.message);
-                                res.render('calendar', { title: 'Calendar', user: user, availability: avail});
-                            });
-                    },function (err) {
-                        debug.log("There was an error getting instructor availability. Error: " + err.message);
-                        res.render('calendar', { title: 'Calendar', user: user});
-                    });
-
+                            return res.render('calendar', { title: 'Calendar', user: user, busyDays: days, availability: "0,0,0,0,0,0,0"});
+                        },function (err) {
+                            debug.log("There was an error getting instructor appt dates. Error: " + err.message);
+                            return res.render('calendar', { title: 'Calendar', user: user, availability:  "0,0,0,0,0,0,0", busyDays: ""});
+                        });
             },function (err) {
                 debug.log("An error occurred fetching professor data: " + err.message);
             });
@@ -39,26 +31,38 @@ router.get('/', function(req, res, next) {
             user.getAvailability(user.userID,
                 function (avail) {
                     debug.log("Availability acquired! Value: " + avail);
-                    user.getBusyDays(user.userID,
+                    user.getScheduledDays(false,user.userID,
                         function (days) {
                             debug.log("Days acquired! Days: " + days);
 
-                            res.render('prof_calendar', { title: 'Calendar', user: user, availability: avail, busyDays: days});
+                            return res.render('prof_calendar', { title: 'Calendar', user: user, availability: avail, busyDays: days});
                         },function (err) {
                             debug.log("There was an error getting instructor appt dates. Error: " + err.message);
-                            res.render('prof_calendar', { title: 'Calendar', user: user, availability: avail});
+                            return res.render('prof_calendar', { title: 'Calendar', user: user, availability: avail, busyDays: ""});
                         });
                 },function (err) {
                     debug.log("There was an error getting instructor availability. Error: " + err.message);
-                    res.render('prof_calendar', { title: 'Calendar', user: user});
+                    return res.render('prof_calendar', { title: 'Calendar', user: user, availability:  "0,0,0,0,0,0,0", busyDays: ""});
                 });
-
-            res.render('prof_calendar', { title: 'Calendar', user: user});
         }
     }
     else{
         res.redirect("../");//Go back to home page
     }
+});
+
+router.get('/updateStudent',function (req,res,next) {
+
+    debug.log(req.query.myID);
+
+    user.getScheduledDays(true,req.query.myID,
+        function (days) {
+            debug.log(days);
+            return res.render('calendar', { title: 'Calendar', user: user, availability: "0,0,0,0,0,0,0", busyDays: days});
+        }, function (err) {
+            debug.log("There was an error! Error: " + err.message);
+            return res.render('calendar', { title: 'Calendar', user: user, availability: "0,0,0,0,0,0,0", busyDays: ""});
+        })
 });
 
 router.get('/updateProf',function (req,res,next) {
@@ -69,19 +73,17 @@ router.get('/updateProf',function (req,res,next) {
         function (avail) {
             debug.log(avail);
 
-            user.getBusyDays(req.query.profID,
+            user.getScheduledDays(false,req.query.profID,
                 function (days) {
                     debug.log(days);
-                    res.render('calendar', { title: 'Calendar', user: user, availability: avail, busyDays: days});
+                    return res.render('calendar', { title: 'Calendar', user: user, availability: avail, busyDays: days});
                 }, function (err) {
                     debug.log("There was an error! Error: " + err.message);
-
-                    res.render('calendar', { title: 'Calendar', user: user, availability: avail});
+                    return res.render('calendar', { title: 'Calendar', user: user, availability: avail, busyDays: ""});
                 })
         }, function (err) {
             debug.log("There was an error! Error: " + err.message);
-
-            res.render('calendar', { title: 'Calendar', user: user});
+            return res.render('calendar', { title: 'Calendar', user: user, availability: "0,0,0,0,0,0,0", busyDays: ""});
         });
 });
 

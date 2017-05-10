@@ -1,0 +1,11 @@
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Choose A Calendar</button>
+    <div id="myDropdown" class="dropdown-content">
+        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+        <a href="/calendar/updateStudent?myID=<%=user.userID%>">My Calendar</a>
+
+        <% user.professors.forEach(function(prof) { %>
+        <a href="/calendar/updateProf?profID=<%=prof.userID%>"><%=prof.firstName%> <%=prof.lastName%></a>
+        <% }); %>
+    </div>
+</div>

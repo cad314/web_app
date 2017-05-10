@@ -99,11 +99,18 @@ User.prototype.getExtraData = function(onSuccess,onEmpty,onErr){
     }
 };
 
-User.prototype.getBusyDays = function(profID,onSuccess,onErr){
+User.prototype.getScheduledDays = function(student, userID, onSuccess, onErr){
 
-    var query = "SELECT * FROM test_database.Appointments WHERE day >= CURDATE() AND profID = ?;";
+    var query = "";
 
-    db.sendQuery(query,[profID],function (rows) {
+    if(student){
+        query = "SELECT * FROM test_database.Appointments WHERE day >= CURDATE() AND studentID = ?;";
+    }
+    else{
+        query = "SELECT * FROM test_database.Appointments WHERE day >= CURDATE() AND profID = ?;";
+    }
+
+    db.sendQuery(query,[userID],function (rows) {
 
         var days = "";
 
@@ -119,6 +126,7 @@ User.prototype.getBusyDays = function(profID,onSuccess,onErr){
         };
 
         //Read rows data and write to a string to return.
+        debug.log(rows);
         rows.forEach(writeDay);
 
         days = days.slice(1);

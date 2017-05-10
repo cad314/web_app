@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <link rel='stylesheet' href='/stylesheets/calendar.css' />
-    </head>
-
-
-    <body>
+<%include calendar_header.ejs%>
         <div class="container">
         <h1>Scheduler</h1>
         </div>
@@ -21,56 +12,9 @@
         <div id="availability" style="visibility: hidden;"><%=availability%></div>
         <div id="busyDays" style="visibility: hidden;"><%=busyDays%></div>
 
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Choose A Professor</button>
-            <div id="myDropdown" class="dropdown-content">
-                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                <a href="/calendar/updateProf?profID=4">Rivoire</a>
-                <a href="/calendar/updateProf?profID=5">Kooshesh</a>
-                <a href="/calendar/updateProf?profID=6">Watts</a>
-                <a href="/calendar/updateProf">hello</a>
-                <a href="/calendar/updateProf">hello world</a>
-            </div>
-        </div>
-
+        <%include drop_down.ejs%>
 
         <br/>
         <div id="calendar" style="max-width: 50%; margin: auto;"></div>
-        <script type="text/javascript" src="/javascripts/calendar.js"></script>
-        <script>
-            /* When the user clicks on the button,
-             toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
-
-            function filterFunction() {
-                var input, filter, ul, li, a, i;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                div = document.getElementById("myDropdown");
-                a = div.getElementsByTagName("a");
-                for (i = 0; i < a.length; i++) {
-                    if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        a[i].style.display = "";
-                    } else {
-                        a[i].style.display = "none";
-                    }
-                }
-            }
-        </script>
         <br>
-        <br>
-
-        <footer>
-            Copyright @Stephanie, Jessica, Carlos
-            <br>
-            <br>
-            May 2017
-        </footer>
-
-
-    </body>
-    <script type="text/javascript" src="/javascripts/calendar.js"></script>
-    <script type="text/javascript" src="/javascripts/more_calendar.js"></script>
-</html>
+<%include calendar_footer.ejs%>

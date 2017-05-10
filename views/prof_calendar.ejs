@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
-    <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <link rel='stylesheet' href='/stylesheets/calendar.css' />
-    </head>
-
-
-    <body>
-        <!--<h1><%= title %></h1>-->
+<%include calendar_header.ejs%>
 
         <div class="container">
-            <h1> Schedule </h1>
+            <h1><%=title%></h1>
         </div>
 
 
@@ -50,13 +40,4 @@
 
         <br>
         <br>
-
-        <footer>
-            Copyright @Stephanie, Jessica, Carlos
-            <br>
-            <br>
-            May 2017
-        </footer>
-
-    </body>
-</html>
+<%include calendar_footer.ejs%>

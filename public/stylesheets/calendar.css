@@ -19,27 +19,7 @@
 .r-calendar .r-cell.r-date.unavailable {
     background-color: rgba(255, 5, 0, 0.51);
 }
-
 /*Custom styling for calendar page*/
-.navBar {
-    overflow: hidden;
-    background-color: #123a7a;
-    font-family: Arial;
-}
-
-.navBar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.navBar a:hover, .dropdown:hover .dropbtn {
-    background-color: dodgerblue;
-}
-
 .dropbtn {
     background-color: #123a7a;
     color: white;
@@ -85,17 +65,6 @@
 }
 
 .dropdown a:hover {background-color: #ddd}
-
-footer {
-    padding: 1em;
-    color: white;
-    background-color: #123a7a;
-    clear: left;
-    font-family: Arial;
-    font-size: 100%;
-    text-align: center;
-}
-
 
 .show {
     display: block;
