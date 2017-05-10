@@ -95,7 +95,10 @@ User.prototype.getExtraData = function(onSuccess,onEmpty,onErr){
         db.sendQuery("SELECT * FROM Students WHERE userID = ?",[self.userID],success,error);
     }
     else{
-        db.sendQuery("SELECT * FROM Professors WHERE userID = ?",[self.userID],success,error);
+        var Query = "SELECT p.deptName, p.officePhone, d.phoneNo AS deptPhone, d.location FROM test_database.Professors AS p"
+        Query += "JOIN test_database.Department AS d ON p.deptName = d.deptName WHERE p.userID = ?";
+
+        db.sendQuery(Query,[self.userID],success,error);
     }
 };
 

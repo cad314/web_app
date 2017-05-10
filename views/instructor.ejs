@@ -9,17 +9,24 @@
         <div class = "container">
             <h1> <a><%= user.first%></a> <a><%= user.last%></a> </h1>
             <br>
+
+            <table class="table">
+
+                <tr>
+                    <td>Email: <a><%= user.extraData.email%></a></td>
+                </tr>
+
+                <tr>
+                    <td>Department: <a><%= user.extraData.deptName%></a></td>
+                    <td>Office Phone: <a><%= user.extraData.officePhone%></a></td>
+                </tr>
+
+            </table>
+
+            <br/>
+            <a href="/edit">Edit Profile</a>
+
         </div>
-
-        <table class="table">
-
-            <tr>
-                <td>Department: <a><%= user.extraData.deptName%></a></td>
-                <td>Office Number: <a><%= user.extraData.officePhone%></a></td>
-            </tr>
-
-        </table>
-
         <br>
         <br>
 
