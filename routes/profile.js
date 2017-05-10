@@ -59,7 +59,6 @@ router.get('/professor/edit', function(req, res, next) {
 router.get('/submit', function (req, res, next) {
     if(user.logged_in && user.isStudent == 0) {
         debug.log(req.body);
-        user.updateProf(req.body.first,req.body.last,)
     }
     else if(user.logged_in) {
 
