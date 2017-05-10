@@ -1,3 +1,39 @@
 <%include header.ejs%>
 
+    <div class="container">
+        <h1>Book An Appointment</h1>
+
+    <div class = 'navBar'>
+        <a href="/profile">Profile</a>
+        <a href="/calendar">Back</a>
+        <a href="/">Log Out</a>
+    </div>
+    <br/>
+
+    <h3>Times Available for this professor:</h3>
+        <p>need to get available times from each professor and display them here</p>
+
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Duration of Appointment</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="#home">15 min.</a>
+                <a href="#about">30 min.</a>
+                <a href="#contact">45 min.</a>
+            </div>
+        </div>
+
+        <form id="login_form">
+            Class:<br />
+            <input name="class" id="user" type="text" /><br />
+            Discussion Topic:<br />
+            <input name="discuss" id="user" type="text" /><br />
+            <br> <br>
+            Add a message with any additional notes you would like your professor to know (optional):<br />
+            <input name="message" id="user" type="textarea" /><br />
+
+
+            <input type="submit" name="Book" value="Submit">
+        </form>
+    </div>
+
 <%include footer.ejs%>

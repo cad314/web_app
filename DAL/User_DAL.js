@@ -95,7 +95,7 @@ User.prototype.getExtraData = function(onSuccess,onEmpty,onErr){
         db.sendQuery("SELECT * FROM Students WHERE userID = ?",[self.userID],success,error);
     }
     else{
-        var Query = "SELECT p.deptName, p.officePhone, d.phoneNo AS deptPhone, d.location FROM test_database.Professors AS p"
+        var Query = "SELECT p.deptName, p.officePhone, d.phoneNo AS deptPhone, d.location FROM test_database.Professors AS p ";
         Query += "JOIN test_database.Department AS d ON p.deptName = d.deptName WHERE p.userID = ?";
 
         db.sendQuery(Query,[self.userID],success,error);
@@ -269,17 +269,17 @@ User.prototype.registerProf =function(first,last,email,password,dept,office,onSu
     );
 };
 
-User.prototype.updateStudent = function(first,last,password,phone,major,minor,onSuccess,onErr){
+User.prototype.updateStudent = function(email,password,phone,major,minor,onSuccess,onErr){
 
-    var Query = "UPDATE 'test_database'.'Users' SET 'firstName' = ?, 'lastName' = ?, 'password' = ? WHERE 'userID' = ? ";
+    var Query = "UPDATE 'test_database'.'Users' SET 'email' = ?, 'password' = ? WHERE 'userID' = ? ";
     Query += "UPDATE `test_database`.`Students` SET `phoneNo`= ?, 'major' = ?, 'minor' = ? WHERE `userID` = ?;";
 
     db.sendQuery(Query,[first,last,password,user.userID,phone,major,minor,user.userID],onSuccess,onErr);
 };
 
-User.prototype.updateProf = function (first,last,password,dept,officeNo,onSuccess,onErr) {
+User.prototype.updateProf = function (email,password,dept,officeNo,onSuccess,onErr) {
 
-    var Query = "UPDATE 'test_database'.'Users' SET 'firstName' = ?, 'lastName' = ?, 'password' = ? WHERE 'userID' = ? ";
+    var Query = "UPDATE 'test_database'.'Users' SET 'email' = ?, 'password' = ? WHERE 'userID' = ? ";
     Query += "UPDATE `test_database`.`Professors` SET `deptName`= ?, 'officePhone' = ? WHERE `userID` = ?;";
 
     db.sendQuery(Query,[first,last,password,user.userID,dept,officeNo,user.userID],onSuccess,onErr);
