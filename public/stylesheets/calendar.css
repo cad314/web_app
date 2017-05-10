@@ -1,11 +1,11 @@
 /*Custom styling for calendar page*/
-.container {
+.navBar {
     overflow: hidden;
     background-color: black;
     font-family: Arial;
 }
 
-.container a {
+.navBar a {
     float: left;
     font-size: 16px;
     color: white;
@@ -14,7 +14,7 @@
     text-decoration: none;
 }
 
-.container a:hover, .dropdown:hover .dropbtn {
+.navBar a:hover, .dropdown:hover .dropbtn {
     background-color: dodgerblue;
 }
 

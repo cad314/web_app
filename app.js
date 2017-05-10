@@ -33,6 +33,7 @@ var calendar = require('./routes/calendar');
 //var instructor = require('./routes/instructor');
 var signup = require('./routes/signup');
 var profile = require('./routes/profile');
+var avail = require('./routes/availability');
 
 
 app.use('/', index);
@@ -41,6 +42,7 @@ app.use('/calendar', calendar);
 //app.use('/instructor', instructor);
 app.use('/signup', signup);
 app.use('/profile', profile);
+app.use('/availability', avail);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
