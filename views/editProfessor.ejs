@@ -1,0 +1,33 @@
+<%include header.ejs%>
+
+    <div class = "navBar">
+        <a href="/calendar">Appointments</a>
+        <a href="/availability">Choose Availability</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class = "container">
+        <h1> <a><%= user.first%></a> <a><%= user.last%></a> </h1>
+        <br>
+
+        <form id="form" method="post">
+            First:<br />
+            <input name="first" id="first" type="text" value="<%= user.first%>" /><br />
+            Last:<br />
+            <input name="last" id="last" type="text" value="<%= user.last%>" /><br />
+            <br> <br>
+            Password:<br />
+            <input name="pw" id="pw" type="password" /><br />
+            <br> <br>
+            Department:<br />
+            <input name="dept" id="dept" type="text" value="<%= user.extraData.deptName%>" /><br />
+            Office Phone:<br />
+            <input name="phone" id="phone" type="test" value="<%= user.extraData.officePhone%>" /><br />
+
+            <input type="submit" name="Submit" value="Submit">
+        </form>
+        <br/>
+
+    </div>
+
+<%include header.ejs%>

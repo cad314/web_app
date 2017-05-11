@@ -21992,6 +21992,7 @@ var React = __webpack_require__(50);
 var debug = __webpack_require__(185);
 var busyDayStr = document.getElementById("busyDays").innerHTML;
 var availList = document.getElementById("availability").innerHTML;
+var calendarID = document.getElementById("calendarID").innerHTML;
 var availability = availList.split(',').map(Number);
 var busyDays = busyDayStr.split(';').map(Number);
 
@@ -22068,6 +22069,7 @@ var Calendar = React.createClass({
             this.state.selectedElement.classList.remove('r-selected');
         }
         element.target.classList.add('r-selected');
+
         this.setState({
             selectedYear: year,
             selectedMonth: month,
@@ -22186,7 +22188,18 @@ var MonthDates = React.createClass({
                         }
                     }
 
-                    return React.createElement('div', { className: className, key: current.valueOf(), role: 'button', tabIndex: '0', onClick: that.props.onSelect.bind(that, that.props.year, that.props.month, d) }, d);
+                    var link = "/calendar/click?day=" + String(day) + "&id=" + calendarID;
+                    return React.createElement('div', { className: className, key: current.valueOf(), role: 'button', tabIndex: '0', onClick: that.props.onSelect.bind(that, that.props.year, that.props.month, d) },
+                    //What is rendered for each calendar square
+                    React.createElement(
+                        "span",
+                        { title: calendarID },
+                        React.createElement(
+                            "a",
+                            { href: link },
+                            d
+                        )
+                    ));
                 }
 
                 return React.createElement('div', { className: 'r-cell' });

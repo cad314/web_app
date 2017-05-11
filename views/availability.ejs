@@ -1,12 +1,151 @@
 <%include header.ejs%>
 
-        <div class = "navBar">
-            <a href="/profile">Back</a>
-            <a href="/logout">Logout</a>
-        </div>
+    <div class = "navBar">
+        <a href="/profile">Back</a>
+        <a href="/logout">Logout</a>
+    </div>
 
-        <!--<div class = "container">-->
-            <h1> This is the availability page </h1>
+    <form method="post">
+    <table class="table2" class="avail_table">
+        <tr>
+            <td> </td>
+            <td><h3> Monday </h3></td>
+            <td><h3> Tuesday </h3></td>
+            <td><h3> Wednesday </h3></td>
+            <td><h3> Thursday </h3></td>
+            <td><h3> Friday </h3></td>
+            <td><h3> Saturday </h3></td>
+            <td><h3> Sunday </h3></td>
+        </tr>
+
+        <tr>
+            <td><h4>8 AM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=1> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=1> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=1> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=1> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=1> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=1> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=1> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>9 AM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=2> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=2> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=2> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=2> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=2> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=2> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=2> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>10 AM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=4> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=4> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=4> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=4> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=4> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=4> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=4> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>11 AM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=8> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=8> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=8> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=8> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=8> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=8> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=8> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>12 PM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=16> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=16> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=16> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=16> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=16> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=16> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=16> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>1 PM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=32> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=32> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=32> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=32> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=32> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=32> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=32> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>2 PM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=64> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=64> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=64> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=64> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=64> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=64> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=64> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>3 PM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=128> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=128> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=128> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=128> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=128> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=128> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=128> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>4 PM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=256> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=256> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=256> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=256> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=256> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=256> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=256> </td>
+
+        </tr>
+
+        <tr>
+            <td><h4>5 PM</h4></td>
+            <td><input type="checkbox" class="availability" name="mon" value=512> </td>
+            <td><input type="checkbox" class="availability" name="tues" value=512> </td>
+            <td><input type="checkbox" class="availability" name="wed" value=512> </td>
+            <td><input type="checkbox" class="availability" name="thurs" value=512> </td>
+            <td><input type="checkbox" class="availability" name="fri" value=512> </td>
+            <td><input type="checkbox" class="availability" name="sat" value=512> </td>
+            <td><input type="checkbox" class="availability" name="sun" value=512> </td>
+
+        </tr>
+
+    </table>
+        <br>
+
+        <!--<div class="submitButton">-->
+        <input type="submit" id ="avail_submit" name="Submit" value="Submit">
         <!--</div>-->
+        <br> <br>
+
+    </form>
 
 <%include footer.ejs%>

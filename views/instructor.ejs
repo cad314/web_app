@@ -9,18 +9,26 @@
         <div class = "container">
             <h1> <a><%= user.first%></a> <a><%= user.last%></a> </h1>
             <br>
+
+            <table class="table">
+
+                <tr>
+                    <td><b>Department:</b> <%= user.extraData.deptName%></td>
+                    <td><b>Department Number:</b> <%= user.extraData.officePhone%></td>
+                </tr>
+
+                <tr>
+                    <td><b>Department Location:</b> <%= user.extraData.location%></td>
+                    <td><b>Office Phone</b>: <%= user.extraData.officePhone%></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><a href="/profile/edit">Edit Profile</a></td>
+                </tr>
+
+            </table>
         </div>
 
-        <table class="table">
+        <br/>
 
-            <tr>
-                <td>Department: <a><%= user.extraData.deptName%></a></td>
-                <td>Office Number: <a><%= user.extraData.officePhone%></a></td>
-            </tr>
-
-        </table>
-
-        <br>
-        <br>
 
 <%include footer.ejs%>

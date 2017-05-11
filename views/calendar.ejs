@@ -7,14 +7,13 @@
             <a href="/profile">Profile</a>
             <a href="/">Log Out</a>
         </div>
-        <br/>
 
-        <div id="availability" style="visibility: hidden;"><%=availability%></div>
-        <div id="busyDays" style="visibility: hidden;"><%=busyDays%></div>
+        <div id="availability" style="visibility: hidden; height: 0;"><%=availability%></div>
+        <div id="busyDays" style="visibility: hidden; height: 0;"><%=busyDays%></div>
+        <div id="calendarID" style="visibility: hidden; height: 0;"><%=calendarID%></div>
 
         <%include drop_down.ejs%>
 
-        <br/>
         <div id="calendar" style="max-width: 50%; margin: auto;"></div>
-        <br>
+        <br />
 <%include calendar_footer.ejs%>
