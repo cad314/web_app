@@ -10,22 +10,24 @@
     <h1> <a><%= user.first%></a> <a><%= user.last%></a> </h1>
     <br>
 
-    <form id="login_form" method = post>
-        Email:<br />
-        <input name="email" id="user" type="text" /><br />
+    <form id="login_form" method="post">
+        First:<br />
+        <input name="first" id="first" type="text" value="<%= user.first%>" /><br />
+        Last:<br />
+        <input name="last" id="last" type="text" value="<%= user.last%>" /><br />
+        <br> <br>
         Password:<br />
-        <input name="psswd" id="user" type="password" /><br />
+        <input name="pw" id="pw" type="password" /><br />
         <br> <br>
         Phone Number:<br />
-        <input name="phone" id="user" type="test" /><br />
+        <input name="phone" id="user" type="test" value="<%= user.extraData.phoneNo%>" /><br />
         Major:<br />
-        <input name="major" id="user" type="text" /><br />
+        <input name="major" id="user" type="text" value="<%= user.extraData.major%>" /><br />
         Minor:<br />
-        <input name="minor" id="user" type="text" /><br />
+        <input name="minor" id="user" type="text" value="<%= user.extraData.minor%>"/><br />
 
         <input type="submit" name="Submit" value="Submit">
     </form>
-    <br/>
 
 </div>
 

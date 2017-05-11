@@ -102,6 +102,21 @@ User.prototype.getExtraData = function(onSuccess,onEmpty,onErr){
     }
 };
 
+User.prototype.getDayInfo = function (userID, day, onSuccess, onErr) {
+
+    var query = "SELECT * FROM test_database.Appointments WHERE profID = ? AND day = ?";
+    var d = new Date(day);
+
+    db.sendQuery(query,[userID,d],
+        function (rows) {
+            onSuccess(rows);
+        },
+        function (err) {
+            onErr(err);
+        }
+    )
+};
+
 User.prototype.getScheduledDays = function(student, userID, onSuccess, onErr){
 
     var query = "";
@@ -148,6 +163,13 @@ User.prototype.getAvailability = function (profID,onSuccess,onErr) {
 
         onSuccess(availability);
     },onErr);
+};
+
+User.prototype.setAvailability = function(values,onSuccess,onErr){
+
+    var query = "UPDATE `test_database`.`Professors` SET `Mon`=?, `Tues`=?, `Wed`=?, `Thurs`=?, `Fri`=?, `Sat`=?, `Sun`=? WHERE `userID`=?;";
+
+    db.sendQuery(query,[values[0],values[1],values[2],values[3],values[4],values[5],values[6],this.userID],onSuccess,onErr);
 };
 
 User.prototype.getAppointmentData = function(onSuccess,onErr){
@@ -269,20 +291,34 @@ User.prototype.registerProf =function(first,last,email,password,dept,office,onSu
     );
 };
 
-User.prototype.updateStudent = function(email,password,phone,major,minor,onSuccess,onErr){
+User.prototype.updateStudent = function(first,last,password,phone,major,minor,onSuccess,onErr){
 
-    var Query = "UPDATE 'test_database'.'Users' SET 'email' = ?, 'password' = ? WHERE 'userID' = ? ";
-    Query += "UPDATE `test_database`.`Students` SET `phoneNo`= ?, 'major' = ?, 'minor' = ? WHERE `userID` = ?;";
+    var Query = "UPDATE test_database.Users SET firstName = ?, lastName = ?, password = ? WHERE userID = ?; ";
+    Query += "UPDATE test_database.Students SET phoneNo = ?, major = ?, minor = ? WHERE userID = ?;";
 
-    db.sendQuery(Query,[first,last,password,user.userID,phone,major,minor,user.userID],onSuccess,onErr);
+    var id = this.userID;
+
+    db.sendQuery(Query,[first,last,password,id,Number(phone),major,minor,id],
+        function () {
+            onSuccess();
+        },function (err) {
+            onErr(err);
+        });
 };
 
-User.prototype.updateProf = function (email,password,dept,officeNo,onSuccess,onErr) {
+User.prototype.updateProf = function (first,last,password,dept,officeNo,onSuccess,onErr) {
 
-    var Query = "UPDATE 'test_database'.'Users' SET 'email' = ?, 'password' = ? WHERE 'userID' = ? ";
-    Query += "UPDATE `test_database`.`Professors` SET `deptName`= ?, 'officePhone' = ? WHERE `userID` = ?;";
+    var Query = "UPDATE test_database.Users SET firstName = ?, lastName = ?, password = ? WHERE userID = ?; ";
+    Query += "UPDATE test_database.Professors SET deptName = ?, officePhone = ? WHERE userID = ?;";
 
-    db.sendQuery(Query,[first,last,password,user.userID,dept,officeNo,user.userID],onSuccess,onErr);
+    db.sendQuery(Query,[first,last,password,this.userID,dept,officeNo,this.userID],
+        function(rows){
+            debug.log(rows);
+            onSuccess();
+        },
+        function (err) {
+            onErr(err);
+        });
 };
 
 //Returns a list of all professors, containing their first name, last name, email and userID.

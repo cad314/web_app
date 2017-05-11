@@ -13,13 +13,16 @@
             <table class="table">
 
                 <tr>
-                    <td>Email: <a><%= user.email%></a></td>
-                    <td>Department: <a><%= user.extraData.deptName%></a></td>
+                    <td><b>Department:</b> <%= user.extraData.deptName%></td>
+                    <td><b>Department Number:</b> <%= user.extraData.officePhone%></td>
                 </tr>
 
                 <tr>
-                    <td>Department Location: <a><%= user.extraData.location%></a></td>
-                    <td>Office Phone: <a><%= user.extraData.officePhone%></a></td>
+                    <td><b>Department Location:</b> <%= user.extraData.location%></td>
+                    <td><b>Office Phone</b>: <%= user.extraData.officePhone%></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><a href="/profile/edit">Edit Profile</a></td>
                 </tr>
 
             </table>
@@ -27,15 +30,5 @@
 
         <br/>
 
-        <h2>Your Booked Appointments</h2>
-        <table>
-            <tr></tr>
-        </table>
-
-        <br/>
-        <a href="/profile/professor/edit">Edit Profile</a>
-
-        <br>
-        <br>
 
 <%include footer.ejs%>

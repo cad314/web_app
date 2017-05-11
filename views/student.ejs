@@ -1,39 +1,29 @@
 <%include header.ejs%>
         <!--<h1><%= title %></h1>-->
         <div class = "navBar">
-            <a href="/calendar">Book Appointment</a>
+            <a href="/calendar">View Calendar</a>
             <a href="/logout">Logout</a>
         </div>
 
         <div class = "container">
-            <h1> <a><%= user.first%></a> <a><%= user.last%></a> </h1>
+            <h1> <%= user.first%> <%= user.last%> </h1>
             <br/>
 
             <table class="table">
 
                 <tr>
-                    <td>Phone Number: <a><%= user.extraData.phoneNo%></a></td>
-                    <td>Email: <a><%= user.email%></a></td>
+                    <td><b>Email: </b><%= user.email%></td>
+                    <td><b>Phone Number:</b><%= user.extraData.phoneNo%></td>
                 </tr>
 
                 <tr>
-                    <td> Major:
-                    <a><%= user.extraData["major"] %></a>
-                    </td>
+                    <td><b>Major: </b><%= user.extraData.major%></td>
 
-                    <td>
-                    Minor:
-                    <a><%= user.extraData.minor%></a>
-
-                    </td>
+                    <td><b>Minor: </b><%= user.extraData.minor%></td>
                 </tr>
+                <tr><td colspan="2"><a href="/profile/edit">Edit Profile</a></td></tr>
             </table>
 
-            <br/>
-            <h2>Your Appointments</h2>
-
-            <br/>
-            <a href="/profile/student/edit">Edit Profile</a>
         </div>
 
         <br>

@@ -19,6 +19,12 @@
 .r-calendar .r-cell.r-date.unavailable {
     background-color: rgba(255, 5, 0, 0.51);
 }
+
+.r-calendar a {
+    text-decoration: none;
+    color: black;
+}
+
 /*Custom styling for calendar page*/
 .dropbtn {
     background-color: #123a7a;

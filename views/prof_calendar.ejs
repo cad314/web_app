@@ -10,34 +10,10 @@
             <a href="/">Log Out</a>
         </div>
 
-        <br/>
-        <div id="availability" style="visibility: hidden;"><%=availability%></div>
-        <div id="busyDays" style="visibility: hidden;"><%=busyDays%></div>
-        <div id="calendar" style="max-width: 50%; margin: auto;"></div>
-        <script type="text/javascript" src="/javascripts/calendar.js"></script>
-        <script>
-            /* When the user clicks on the button,
-             toggle between hiding and showing the dropdown content */
-            function myFunction() {
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
+        <div id="availability" style="visibility: hidden; height: 0;"><%=availability%></div>
+        <div id="busyDays" style="visibility: hidden; height: 0;"><%=busyDays%></div>
+        <div id="calendarID" style="visibility: hidden; height: 0;"><%=calendarID%></div>
 
-            function filterFunction() {
-                var input, filter, ul, li, a, i;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                div = document.getElementById("myDropdown");
-                a = div.getElementsByTagName("a");
-                for (i = 0; i < a.length; i++) {
-                    if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        a[i].style.display = "";
-                    } else {
-                        a[i].style.display = "none";
-                    }
-                }
-            }
-        </script>
-
-        <br>
-        <br>
+    <div id="calendar" style="max-width: 50%; margin: auto;"></div>
+    <br />
 <%include calendar_footer.ejs%>
